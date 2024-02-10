@@ -8,5 +8,6 @@
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------
 
-1. Sample code to connect to mongo db . index_with_mongoose_connections.js
+1. Sample code to connect to mongo db -  index_with_mongoose_connections.js
 
+2. Basic Sample code to insert one and insert many with Schema: index_withschema.js 
