@@ -11,3 +11,5 @@
 1. Sample code to connect to mongo db -  index_with_mongoose_connections.js
 
 2. Basic Sample code to insert one and insert many with Schema: index_withschema.js 
+
+3. Basic example of find menthod in mongodb  -- index_find_example.js
