@@ -17,3 +17,5 @@
 4. delete data - index_delete.js
 
 5. Schema Validation - index_withschema.js
+
+6. schema validation with schemaTypes - index_schema_options.js -- Ref: https://mongoosejs.com/docs/schematypes.html
