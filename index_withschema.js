@@ -9,60 +9,44 @@ main().then((res) => {
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/test');
+  await mongoose.connect('mongodb://127.0.0.1:27017/amazon');
   
 }
 
-//Create user schema
 
-const userSchema = new mongoose.Schema({    
-    name: String,
-    email: String,
-    age: Number
-});
-//create model 
-//based on schema where name is DB name , created based on schema .
-const User = mongoose.model("User", userSchema)
-//const Employee = mongoose.model("Employee", userSchema)
+const bookSchema = new mongoose.Schema({
+    title:{
+        type: String,
+        required: true,
+    },
+    author:{
+        type: String,
+    },
+    price:{
+        type: Number,
+    }
+}); 
 
+const Book = mongoose.model("Book",bookSchema);
 
-//insert value into mongodb
-
-// const user1 = new User(
+// let book1 = new Book(
 //     {
-//         name  : "adam",
-//         email : "adam@gmail.com",
-//         age    : 33
-//     }
-// );
-// user1.save();
-
-//Insert user2 value manually
-// const user3 = new User(
-//     {
-//         name  : "diva",
-//         email : "diva@gmail.com",
-//         age    : 29
+//         title:"Math",
+//         author:"Kumbojkar",
+//         price: 500,
 //     }
 // );
 
-// user3.save()
-// .then((res) =>{
-//     console.log(`user added successfully ${res}`);
-// })
-// .catch((err) =>{
-//     console.log(err);
-// });
-
-
-//Insert Many users in one shot
-
-User.insertMany([
-    {name:"durvank",email:"durvank@gmail.com",age:5},
-    {name:"kimaya",email:"kimaya@gmail.com",age:1},
-    {name:"priyanka",email:"priya@gmail.com",age:30}
-]).then( (data) =>{
-    console.log(`Multiple users added successfully : ${data}`);
-}).catch((err)=>{
+let book2 = new Book(
+    {
+        title: "Math SE SEM2",
+        author:"Kumbojkar",
+        price: "980",
+    }
+);
+book2.save()
+.then((result) =>{
+    console.log(result);
+}).catch((err) =>{
     console.log(err);
-})
+});

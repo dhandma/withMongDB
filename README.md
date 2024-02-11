@@ -15,3 +15,5 @@
 3. Basic example of find menthod in mongodb  -- index_find_example.js
 
 4. delete data - index_delete.js
+
+5. Schema Validation - index_withschema.js
