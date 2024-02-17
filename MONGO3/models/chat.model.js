@@ -10,9 +10,12 @@ const chatSchema = new mongoose.Schema({
     },
     msg: {
         type: String
+    },
+    createdAt:{
+        type: Date,
     }
 
-});
+}, {timestamps:true});
 
 //create model
 

@@ -29,3 +29,19 @@ Inside MONGO3:
 Created get post call using express, ejs and mongodb. 
 1. views/index.ejs --  wil render the chat messages which will be available in mongodb . 
 2. views/index.ejs --  will help to create new form for GET "/chats/new" and  POST "/chats/new" to push data to mongodb and redirect to "/chats"
+3. model/chat.model.js -- Created Chat Model database schema
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Edit chat : Click on Edit Button on Chats  -- > GET CALL -- > render edit_chat.js form --> edit based on id -- > /chats/:id/edit 
+PUT Edited message to "/chats/:id" 
+In HTML , we have only GET and POST request by default, to use PUT request, install ** npm i method-override **
+
+Syntaz to make PUT call:
+<form method="POST" action="/chats/<%= chatId._id %>?_method=PUT">
+
+Also, we need to require the method-override package:
+const methodOverride = require("method-override")
+Middleware: 
+app.use(methodOverride("_method"));
+
+------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -3,15 +3,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const Chat = require("./models/chat.model.js");
-
+const methodOverride = require("method-override");
 const app = express();
 
 //to use ejs 
 app.set("views", path.join(__dirname,"views"));
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
 //to read static file
 app.use(express.static(path.join(__dirname,"public")));
+
+//to use the PUT operation, we have to use below code snippet 
+app.use(methodOverride("_method"));
+
 
 //promse to wait if getting successful connection or not with DB 
 main().then((res) => {
@@ -38,7 +42,7 @@ app.listen("8080", () =>{
 
 app.get("/chats", async (req,res)=>{
      let allChats = await Chat.find();
-     console.log(allChats);
+    //  console.log(allChats);
      res.render("index.ejs", {allChats})
 });
 
@@ -53,7 +57,7 @@ app.use(express.urlencoded({extended:true}))
 
 //Create post route to create new chat based on above get call 
 app.post("/chats", (req,res) =>{
-    let{from, to , msg } = req.body;  //now to read the data from request bidy we need to write middleware which will help to read url encoded data as we are getting data from url
+    let{from, to , msg } = req.body;  //destructure the reqponse . now to read the data from request bidy we need to write middleware which will help to read url encoded data as we are getting data from url
     console.log(req.body);
     let newChatObj = new Chat(
         {
@@ -73,36 +77,58 @@ app.post("/chats", (req,res) =>{
 })
 
 
+// Edit route
+app.get("/chats/:id/edit" , async (req,res) =>{
 
+    //set the value for id by getting all value from request parameter
 
-//Create dummy array to insert values into database
-// let chatData = [
-//     {
-//         from: "mayur",
-//         to: "harsha",
-//         msg: "Teach me farming..."
-//     },
-//     {
-//         from: "rohit",
-//         to: "virat",
-//         msg: "go to silly midwicket virat"
-//     },
-//     {
-//         from: "virat",
-//         to: "rishabh",
-//         msg: "kaam kar aur badbad kam.."
-//     },
-//     {
-//         from: "pant",
-//         to: "pujara",
-//         msg: "kuchh dino me mai hi bada star hu "
-//     },
-//     {
-//         from: "pujara",
-//         to: "shubhman",
-//         msg: "tu dekh tera kya hoga.."
-//     },
+    let {id} = req.params;
 
-// ]
+    //use mongo findById method to serach the ID In DB and edit 
+    let chatId= await Chat.findById(id);
+
+    res.render("edit_chats.ejs", {chatId});
+});
+
+//Update route after editing message
+app.put("/chats/:id" , async (req,res) =>{
+    let {id} = req.params;
+    let {msg : newMsg} = req.body; // we wil get mesg from body which we will set value to newMsg
+    //now find the id in databse and update the message. To do this, lets use mongo findByIdAndUpdate
+    let updatedChat = await Chat.findByIdAndUpdate(id,{msg: newMsg}, {runValidators: true, new: true} ); // use basic mongo operation toedit value in db where we pass id and then update the specific object
+    console.log(updatedChat);
+    res.redirect("/chats")
+
+}); 
+
+// Create dummy array to insert values into database
+let chatData = [
+    {
+        from: "mayur",
+        to: "harsha",
+        msg: "Teach me farming..."
+    },
+    {
+        from: "rohit",
+        to: "virat",
+        msg: "go to silly midwicket virat"
+    },
+    {
+        from: "virat",
+        to: "rishabh",
+        msg: "kaam kar aur badbad kam.."
+    },
+    {
+        from: "pant",
+        to: "pujara",
+        msg: "kuchh dino me mai hi bada star hu "
+    },
+    {
+        from: "pujara",
+        to: "shubhman",
+        msg: "tu dekh tera kya hoga.."
+    },
+
+]
 
 //Chat.insertMany(chatData);
