@@ -101,6 +101,13 @@ app.put("/chats/:id" , async (req,res) =>{
 
 }); 
 
+//destroy route
+app.delete("/chats/:id", async (req,res) => {
+    let {id} = req.params;
+    let deletedChat = await Chat.findByIdAndDelete(id);
+    console.log("\nDeleted Chat \n",deletedChat);
+    res.redirect("/chats")
+})
 // Create dummy array to insert values into database
 let chatData = [
     {
@@ -126,7 +133,7 @@ let chatData = [
     {
         from: "pujara",
         to: "shubhman",
-        msg: "tu dekh tera kya hoga.."
+        msg: "tu dekh tera kya hoga.." 
     },
 
 ]

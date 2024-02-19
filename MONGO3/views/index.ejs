@@ -21,8 +21,12 @@
             <p ><%= chat.msg %></p>
                 <form method="GET" action="/chats/<%= chat._id %>/edit">
                 <button>Edit Message</button>
+            </form>
+            <br>
+            <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE">
+                <button>Delete Message</button>
                 </form>
-        </div>            
+            </div>            
         <p class="toclass">To: <i><%= chat.to %> </i></p>
         <p> <%=  chat.createdAt.toString().split(' ')[4] %></p>
         <p> <%=  chat.createdAt.toString().split(' ').slice(0,4).join(" ") %></p>
