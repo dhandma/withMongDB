@@ -45,3 +45,10 @@ Middleware:
 app.use(methodOverride("_method"));
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+MAJORPROJECT :
+Phase 1: 
+Show route: To add rupee symbol : 	&#8377
+to add commas: num.toLocalString("en-IN)
+
